@@ -1,0 +1,45 @@
+
+import numpy as np
+ 
+
+#Question 1
+def Pn(n):
+    x=np.linspace(0,np.pi/2,n)
+    return x
+    
+#Question 3
+x0=0
+x1=np.pi/2
+
+points=[10,30,300,1000]
+
+for n in points:
+    x=np.linspace(x0,x1,n)
+    y=np.cos(x)
+    total=np.sum(y)*(x[-1]-x[0])/n
+    er=1-total
+    print 'integral is ='+ repr(total) +' with n=' + repr(n)+ '  error ='+ repr(er)
+
+#Question 4
+
+#using the array x in question 3
+
+print 'even points='+repr(x[2::2])
+print 'odd points='+ repr(x[1:-1:2])
+
+
+# Question 5
+
+def Simp(n):
+    dx=np.pi/2/(n-1)*2
+    y=np.cos(Pn(n))
+    ye=y[2::2]
+    yo=y[1:-1:2]
+    total=dx*(y[0]/6 + np.sum(yo)*2/3+ np.sum(ye)*1/3+ y[-1]/6)
+    return total
+        
+print 'Simpson integration is=' +repr(Simp(11))
+     
+
+    
+
