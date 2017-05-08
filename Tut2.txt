@@ -1,0 +1,67 @@
+from numpy.fft import fft,ifft
+import numpy as np
+import pylab
+
+
+##Question 1
+def myshift(x,n=0):
+    vec=0*x  
+    vec[n]=1
+    vecft=fft(vec)
+    xft=fft(x)
+    return np.real(ifft(xft*vecft))
+
+if __name__=='__main__':
+    x=np.arange(-10,10,0.1)
+    sigma=2
+    yy=np.exp(-0.5*x**2/sigma**2)
+    yshift=myshift(yy,yy.size/2)
+    
+   
+    pylab.plot(x,yy,'y')
+    pylab.plot(x,yshift,'b')
+##    
+### Question 2    
+    
+def mycor(x,y):
+    xft=fft(x)
+    yft=fft(y)
+    yftconj=np.conj(yft)
+    return np.real(ifft(xft*yftconj))
+
+if __name__=='__main__':
+        x=np.arange(-10,10,0.1)
+        sigma=2
+        y=np.exp(-0.5*x**2/sigma**2)
+        
+        ycor=mycor(y,y)
+        pylab.plot(x,ycor,'r')
+        pylab.show()      
+        
+#Question 3
+
+def myshift(x,n=0):
+    vec=0*x  
+    vec[n]=1
+    vecft=fft(vec)
+    xft=fft(x)
+    return np.real(ifft(xft*vecft))
+def mycor(x,y):
+    xft=fft(x)
+    yft=fft(y)
+    yftconj=np.conj(yft)
+    return np.real(ifft(xft*yftconj))    
+    
+    
+if __name__=='__main__':
+        x=np.arange(-10,10,0.1)
+        sigma=2
+        y=np.exp(-0.5*x**2/sigma**2)
+        
+        ycorr=mycor(y,y)
+        yshift=myshift(y,y.size/4)
+        yshiftcorr=mycor(yshift,yshift)
+        pylab.plot(x,ycorr)
+        pylab.plot(x,yshiftcorr,'g')    
+
+
